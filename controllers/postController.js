@@ -1,14 +1,12 @@
 let posts = [
-    { id: 1, title: 'Post One' },
-    { id: 2, title: 'Post Two' },
-    { id: 3, title: 'Post Three' },
+    { id: 1, title: 'Paris, France', image: 'https://wildmorocco.com/storage/2024/12/wild-morocco-blog-images-01-400x250.jpg', description: 'Experience the City of Lights with romantic streets, and world-famous cuisine.' , nb_like: 20},
+    { id: 2, title: 'Safari Adventure, Kenya', image: 'https://liveworkplaytravel.com/wp-content/uploads/2022/05/SoloTravellerFemale-400x250.jpg', description: 'Witness the majestic wildlife of Africa on a guided safari through Kenya’s national parks.' , nb_like: 19},
+    { id: 3, title: 'Tokyo, Japan', image: 'https://fairfieldcountylook.com/wp-content/uploads/2024/09/iStock-467903903-400x250.jpg', description: 'Dive into a futuristic city with ancient temples, neon streets, and exquisite sushi.' , nb_like: 30},
   ];
 
 exports.getAllPosts = (req, res) => { 
 
     const limit = parseInt(req.query.limit);
-
-    console.log({limit})
 
   if (!isNaN(limit) && limit > 0) {
     return res.status(200).json(posts.slice(0, limit));
@@ -30,11 +28,13 @@ exports.getPostById = (req, res) => {
 
 };
 exports.createPost = (req, res) => { 
-  console.log({lngth : posts.length + 1})
-  console.log({title: req.body.title})
+  
     const newPost = {
         id: posts.length + 1,
         title: req.body.title,
+        image: req.body.image,
+        description: req.body.description,
+        nb_like: req.body.nb_like,
       };
     
       if (!newPost.title) {
@@ -57,6 +57,10 @@ exports.updatePost = (req, res) => {
   }
 
   post.title = req.body.title;
+  post.image = req.body.image;
+  post.description = req.body.description;
+  post.nb_like = req.body.nb_like;
+
   res.status(200).json(posts);
 
 };
